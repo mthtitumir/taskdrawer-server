@@ -4,4 +4,4 @@ const router = express.Router();
 
 router.post('/', );
 
-export const TaskRoutes = router;
+export const ProjectRoutes = router;
