@@ -5,7 +5,7 @@ export type TTask = {
     title: string;
     description?: string;
     dueDate: Date;
-    status: 'in-progress' | 'canceled' | 'completed';
+    status: 'in-progress' | 'cancelled' | 'completed';
     type: 'personal' | 'team';
     priority: 'low' | 'medium' | 'high';
     assignee: Types.ObjectId;

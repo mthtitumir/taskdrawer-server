@@ -21,7 +21,7 @@ const taskSchema = new Schema<TTask>({
   status: {
     type: String,
     enum: {
-      values: ['in-progress', 'canceled', 'completed'],
+      values: ['in-progress', 'cancelled', 'completed'],
       message: '{VALUE} is not a valid status!',
     },
     required: [true, 'Status is required!'],
