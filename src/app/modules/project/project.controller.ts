@@ -13,7 +13,19 @@ const createProject = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const updateProject = catchAsync(async (req, res) => {
+  const id = req.params.projectId;
+  const result = await ProjectServices.updateProjectIntoDB(id, req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project updated successfully!',
+    data: result,
+  });
+});
 
 export const ProjectControllers = {
   createProject,
+  updateProject,
 };
