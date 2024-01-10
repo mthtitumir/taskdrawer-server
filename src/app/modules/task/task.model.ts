@@ -51,6 +51,6 @@ const taskSchema = new Schema<TTask>({
     type: Schema.Types.ObjectId,
     ref: 'Project',
   },
-});
+}, {timestamps: true});
 
 export const Task = model<TTask>('Task', taskSchema);
