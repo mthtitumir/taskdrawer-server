@@ -28,8 +28,8 @@ const userSchema = new Schema<TUser>(
       type: String,
     },
     projects: {
-      type: Schema.Types.ObjectId,
-      ref: 'Project'
+      type: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+      default: [],
     },
   },
   {

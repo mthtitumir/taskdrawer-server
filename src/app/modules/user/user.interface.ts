@@ -8,5 +8,5 @@ export type TUser = {
   profilePicture?: string;
   bio?: string;
   timeZone?: string;
-  projects?: Types.ObjectId;
+  projects?: [Types.ObjectId];
 };
