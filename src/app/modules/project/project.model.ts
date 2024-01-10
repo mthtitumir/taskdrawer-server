@@ -20,6 +20,6 @@ const projectSchema = new Schema<TProject>({
   endDate: {
     type: Date,
   },
-});
+}, {timestamps: true});
 
 export const Project = model('Project', projectSchema);
