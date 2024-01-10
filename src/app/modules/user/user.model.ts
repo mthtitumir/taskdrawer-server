@@ -4,30 +4,32 @@ import config from '../../config';
 import { TUser } from './user.interface';
 const userSchema = new Schema<TUser>(
   {
-    id: {
+    username: {
       type: String,
-      required: true,
+      required: [true, 'Username is required!'],
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required!'],
+      unique: true,
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Password is required!'],
     },
-    needsPasswordChange: {
-      type: Boolean,
-      default: true,
-    },
-    role: {
+    profilePicture: {
       type: String,
-      enum: ['student', 'faculty', 'admin'],
     },
-    status: {
+    bio: {
       type: String,
-      enum: ['in-progress', 'blocked'],
-      default: 'in-progress',
     },
-    isDeleted: {
-      type: Boolean,
-      default: false,
+    timeZone: {
+      type: String,
+    },
+    projects: {
+      type: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+      default: [],
     },
   },
   {
@@ -37,10 +39,9 @@ const userSchema = new Schema<TUser>(
 
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this; // doc
   // hashing password and save into DB
-  user.password = await bcrypt.hash(
-    user.password,
+  this.password = await bcrypt.hash(
+    this.password,
     Number(config.bcrypt_salt_rounds),
   );
   next();

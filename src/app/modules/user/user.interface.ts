@@ -1,8 +1,12 @@
+import { Types } from "mongoose";
+
 export type TUser = {
-  id: string;
+  username: string;
+  email: string;
   password: string;
-  needsPasswordChange: boolean;
-  role: 'admin' | 'student' | 'faculty';
-  status: 'in-progress' | 'blocked';
-  isDeleted: boolean;
+  name: string;
+  profilePicture?: string;
+  bio?: string;
+  timeZone?: string;
+  projects?: [Types.ObjectId];
 };
