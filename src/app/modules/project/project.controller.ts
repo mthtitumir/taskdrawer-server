@@ -24,8 +24,20 @@ const updateProject = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getUserAllProject = catchAsync(async (req, res) => {
+  const id = req.params.userId; // this id must be from the auth (auth.user)
+  const result = await ProjectServices.getUserAllProjectFromDB(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User's projects retrieved successfully!",
+    data: result,
+  });
+});
 
 export const ProjectControllers = {
   createProject,
   updateProject,
+  getUserAllProject
 };

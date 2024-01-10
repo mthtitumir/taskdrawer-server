@@ -8,7 +8,7 @@ const createProjectIntoDB = async (payload: TProject) => {
   try {
     session.startTransaction();
     const project = await Project.create([payload], { session });
-    // update user projects[],    
+    // update user projects[],
     const updatedUser = await User.findByIdAndUpdate(
       project[0].admin,
       {
@@ -23,7 +23,7 @@ const createProjectIntoDB = async (payload: TProject) => {
     await session.commitTransaction();
     await session.endSession();
     return { project: project[0], updatedUser };
-  } catch (err:any) {
+  } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
@@ -33,10 +33,14 @@ const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
   const result = await Project.findByIdAndUpdate(id, payload, { new: true });
   return result;
 };
-const getAllProjectFromDB = async () => {};
+const getUserAllProjectFromDB = async (id: string) => {
+  const user = await User.findById(id);
+  const projects = await Project.find({ _id: { $in: user?.projects } });
+  return projects;
+};
 
 export const ProjectServices = {
   createProjectIntoDB,
   updateProjectIntoDB,
-  getAllProjectFromDB,
+  getUserAllProjectFromDB,
 };
