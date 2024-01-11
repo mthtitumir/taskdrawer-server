@@ -17,11 +17,7 @@ const loginUser = catchAsync(async (req, res) => {
       statusCode: httpStatus.OK,
       success: true,
       message: 'User is logged in successfully!',
-      data: {
-        result
-        // accessToken,
-        // needsPasswordChange,
-      },
+      data: result
     });
   });
 

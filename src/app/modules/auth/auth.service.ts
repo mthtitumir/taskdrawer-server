@@ -8,7 +8,7 @@ import { createToken } from './auth.utils';
 
 const loginUser = async (payload: TLoginUser) => {
   // checking if the user is exist
-  const user = await User.isUserExistsByCustomId(payload.email);
+  const user = await User.isUserExists({email: payload?.email});
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -16,13 +16,12 @@ const loginUser = async (payload: TLoginUser) => {
   //checking if the password is correct
 
   if (!(await User.isPasswordMatched(payload?.password, user?.password)))
-    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
+    throw new AppError(httpStatus.FORBIDDEN, 'Password does not matched');
 
   //create token and sent to the  client
 
   const jwtPayload = {
-    // userId: user.id,
-    // role: user.role,
+    email: user.email
   };
 
   const accessToken = createToken(
