@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { TTask } from './task.interface';
+import { priority, status, type } from './task.constant';
 
 const taskSchema = new Schema<TTask>({
   taskId: {
@@ -21,7 +22,7 @@ const taskSchema = new Schema<TTask>({
   status: {
     type: String,
     enum: {
-      values: ['in-progress', 'cancelled', 'completed'],
+      values: status,
       message: '{VALUE} is not a valid status!',
     },
     required: [true, 'Status is required!'],
@@ -29,7 +30,7 @@ const taskSchema = new Schema<TTask>({
   type: {
     type: String,
     enum: {
-      values: ['personal', 'team'],
+      values: type,
       message: '{VALUE} is not a valid task type!',
     },
     default: 'personal',
@@ -37,7 +38,7 @@ const taskSchema = new Schema<TTask>({
   priority: {
     type: String,
     enum: {
-      values: ['low', 'medium', 'high'],
+      values: priority,
       message: '{VALUE} is not a valid priority!',
     },
     required: true,
