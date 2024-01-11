@@ -4,8 +4,7 @@ import { priority, status, type } from './task.constant';
 
 const taskSchema = new Schema<TTask>({
   taskId: {
-    type: String,
-    required: [true, 'Task id is required!'],
+    type: Number,
     unique: true,
   },
   title: {

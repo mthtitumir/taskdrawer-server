@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { Types } from 'mongoose';
 
 const createUserValidationSchema = z.object({
   body: z.object({
@@ -10,7 +9,7 @@ const createUserValidationSchema = z.object({
     profilePicture: z.string().optional(),
     bio: z.string().optional(),
     timeZone: z.string().optional(),
-    projects: z.array(z.instanceof(Types.ObjectId)).optional(),
+    projects: z.array(z.string()).optional(),
   })
 });
 const updateUserValidationSchema = z.object({
@@ -21,7 +20,7 @@ const updateUserValidationSchema = z.object({
     profilePicture: z.string().optional(),
     bio: z.string().optional(),
     timeZone: z.string().optional(),
-    projects: z.array(z.instanceof(Types.ObjectId)).optional(),
+    projects: z.array(z.string()).optional(),
   })
 });
 
