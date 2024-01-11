@@ -6,5 +6,5 @@ export const findLastTaskId = async () => {
     .select('taskId')
     .lean();
 
-  return lastStudent?.taskId ? lastStudent.taskId : undefined;
+  return lastStudent?.taskId ? lastStudent.taskId.toString() : undefined;
 };

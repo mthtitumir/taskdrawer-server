@@ -1,6 +1,5 @@
-import { Types } from "mongoose";
 
 export type TLoginUser = {
-    id: Types.ObjectId;
+    email: string;
     password: string;
 }

@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export type TTask = {
-    taskId?: number;
+    taskId?: string;
     title: string;
     description?: string;
     dueDate: Date;
