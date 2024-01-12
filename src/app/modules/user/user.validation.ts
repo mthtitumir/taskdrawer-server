@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+const userRole = ['user', 'admin'];
+
 const createUserValidationSchema = z.object({
   body: z.object({
     username: z.string(),
@@ -10,6 +12,7 @@ const createUserValidationSchema = z.object({
     bio: z.string().optional(),
     timeZone: z.string().optional(),
     projects: z.array(z.string()).optional(),
+    role: z.enum([...userRole] as [string, ...string[]]).optional(),
   })
 });
 const updateUserValidationSchema = z.object({
@@ -21,6 +24,7 @@ const updateUserValidationSchema = z.object({
     bio: z.string().optional(),
     timeZone: z.string().optional(),
     projects: z.array(z.string()).optional(),
+    role: z.enum([...userRole] as [string, ...string[]]).optional(),
   })
 });
 

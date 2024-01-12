@@ -18,6 +18,10 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: [true, 'Password is required!'],
     },
+    name: {
+      type: String,
+      required: [true, 'Name is required!'],
+    },
     profilePicture: {
       type: String,
     },
@@ -30,6 +34,14 @@ const userSchema = new Schema<TUser, UserModel>(
     projects: {
       type: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
       default: [],
+    },
+    role: {
+      type: String,
+      enum: {
+        values: ['user', 'admin'],
+        message: '{VALUE} is not a valid role!',
+      },
+      default: 'user',
     },
   },
   {

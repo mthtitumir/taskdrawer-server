@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { Model, Types } from "mongoose";
+import { USER_ROLE } from "./user.constant";
+
+export type TUserRole = keyof typeof USER_ROLE;
 
 export type TUser = {
   username: string;
@@ -10,7 +13,9 @@ export type TUser = {
   bio?: string;
   timeZone?: string;
   projects?: [Types.ObjectId];
+  role?: 'user' | 'admin';
 };
+
 
 export interface UserModel extends Model<TUser> {
   //instance methods for checking if the user exist
