@@ -13,6 +13,7 @@ const createTask = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 const updateTask = catchAsync(async (req, res) => {
   const id = req.params.taskId;
   const result = await TaskServices.updateTaskIntoDB(id, req.body);
@@ -25,7 +26,20 @@ const updateTask = catchAsync(async (req, res) => {
   });
 });
 
+const getUserSpecificTasks = catchAsync(async (req, res) => {
+  const user = req.user;
+  const result = await TaskServices.getUserSpecificTasks(user, req?.query);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `User's all tasks retrieved successfully!`,
+    data: result,
+  });
+});
+
 export const TaskControllers = {
   createTask,
-  updateTask
+  updateTask,
+  getUserSpecificTasks
 };

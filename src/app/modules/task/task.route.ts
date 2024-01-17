@@ -29,4 +29,10 @@ router.patch(
   TaskControllers.updateTask,
 );
 
+router.get(
+  '/',
+  auth(USER_ROLE.user),
+  TaskControllers.getUserSpecificTasks,
+);
+
 export const TaskRoutes = router;
