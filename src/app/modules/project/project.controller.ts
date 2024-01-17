@@ -13,6 +13,7 @@ const createProject = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 const updateProject = catchAsync(async (req, res) => {
   const id = req.params.projectId;
   const result = await ProjectServices.updateProjectIntoDB(id, req.body);
@@ -24,8 +25,10 @@ const updateProject = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 const getUserAllProject = catchAsync(async (req, res) => {
-  const id = req.params.userId; // this id must be from the auth (auth.user)
+  const id = req?.user?._id; 
+  // this id must be from the auth (auth.user)
   const result = await ProjectServices.getUserAllProjectFromDB(id);
 
   sendResponse(res, {

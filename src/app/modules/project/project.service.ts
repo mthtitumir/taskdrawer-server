@@ -29,12 +29,14 @@ const createProjectIntoDB = async (payload: TProject) => {
     throw new Error(err);
   }
 };
+
 const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
   const result = await Project.findByIdAndUpdate(id, payload, { new: true });
   return result;
 };
+
 const getUserAllProjectFromDB = async (id: string) => {
-  const user = await User.findById(id);
+  const user = await User.isUserExists({_id: id});
   const projects = await Project.find({ _id: { $in: user?.projects } });
   return projects;
 };

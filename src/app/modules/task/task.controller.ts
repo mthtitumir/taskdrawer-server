@@ -27,8 +27,10 @@ const updateTask = catchAsync(async (req, res) => {
 });
 
 const getUserSpecificTasks = catchAsync(async (req, res) => {
-  const user = req.user;
-  const result = await TaskServices.getUserSpecificTasks(user, req?.query);
+  const result = await TaskServices.getUserSpecificTasksFromDB(
+    req?.user,
+    req?.query,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -38,8 +40,24 @@ const getUserSpecificTasks = catchAsync(async (req, res) => {
   });
 });
 
+const getProjectAllTasks = catchAsync(async (req, res) => {
+  const id = req?.params?.projectId;
+  const result = await TaskServices.getProjectAllTasksFromDB(
+    id,
+    req?.user,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `Project's all tasks retrieved successfully!`,
+    data: result,
+  });
+});
+
 export const TaskControllers = {
   createTask,
   updateTask,
-  getUserSpecificTasks
+  getUserSpecificTasks,
+  getProjectAllTasks,
 };

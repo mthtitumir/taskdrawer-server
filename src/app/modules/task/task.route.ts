@@ -11,8 +11,7 @@ const router = express.Router();
 1. create task by user, if team task then must assign someone
 2. update task on status
 3. get user specific all task (personal tasks and team tasks) with filter, sort, search
-4. get all task for single user, sort/filter/search
-5. get all task of a project 
+4. get all task of a project
 */
 
 router.post(
@@ -34,5 +33,12 @@ router.get(
   auth(USER_ROLE.user),
   TaskControllers.getUserSpecificTasks,
 );
+
+// didn't test this api yet 
+router.get(
+  '/:projectId',
+  auth(USER_ROLE.user),
+  TaskControllers.getProjectAllTasks
+)
 
 export const TaskRoutes = router;
