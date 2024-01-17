@@ -20,10 +20,10 @@ const updateTaskSchema = z.object({
     description: z.string().optional(),
     dueDate: z.string().datetime().optional(),
     status: z.enum([...status] as [string, ...string[]]).optional(),
-    type: z.enum([...type] as [string, ...string[]]).optional(),
+    // type: z.enum([...type] as [string, ...string[]]).optional(),
     priority: z.enum([...priority] as [string, ...string[]]).optional(),
-    assignee: z.string().optional(),
-    project: z.string().optional(),
+    // assignee: z.string().optional(),
+    // project: z.string().optional(),
   }),
 });
 

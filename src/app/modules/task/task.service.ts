@@ -12,7 +12,12 @@ const createTaskIntoDB = async (payload: TTask) => {
   const result = await Task.create(payload);
   return result;
 };
+const updateTaskIntoDB = async (id: string, payload: Partial<TTask>) => {
+  const result = await Task.findByIdAndUpdate(id, payload, { new: true });
+  return result;
+};
 
 export const TaskServices = {
   createTaskIntoDB,
+  updateTaskIntoDB
 };
