@@ -22,7 +22,8 @@ const loginUser = async (payload: TLoginUser) => {
 
   const jwtPayload = {
     email: user.email,
-    role: user.role as string
+    role: user.role as string,
+    _id: user._id,
   };
 
   const accessToken = createToken(
@@ -31,15 +32,15 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_access_expires_in as string,
   );
 
-//   const refreshToken = createToken(
-//     jwtPayload,
-//     config.jwt_refresh_secret as string,
-//     config.jwt_refresh_expires_in as string,
-//   );
+  const refreshToken = createToken(
+    jwtPayload,
+    config.jwt_refresh_secret as string,
+    config.jwt_refresh_expires_in as string,
+  );
 
   return {
     accessToken,
-    // refreshToken,
+    refreshToken,
   };
 };
 
