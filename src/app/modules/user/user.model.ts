@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
-import { TUser } from './user.interface';
-const userSchema = new Schema<TUser>(
+import { TUser, UserModel } from './user.interface';
+const userSchema = new Schema<TUser, UserModel>(
   {
     username: {
       type: String,
@@ -18,6 +18,10 @@ const userSchema = new Schema<TUser>(
       type: String,
       required: [true, 'Password is required!'],
     },
+    name: {
+      type: String,
+      required: [true, 'Name is required!'],
+    },
     profilePicture: {
       type: String,
     },
@@ -30,6 +34,14 @@ const userSchema = new Schema<TUser>(
     projects: {
       type: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
       default: [],
+    },
+    role: {
+      type: String,
+      enum: {
+        values: ['user', 'admin'],
+        message: '{VALUE} is not a valid role!',
+      },
+      default: 'user',
     },
   },
   {
@@ -52,5 +64,15 @@ userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
+userSchema.statics.isUserExists = async function (field: Record<string, unknown>) {
+  return await User.findOne(field).select('+password');
+};
 
-export const User = model<TUser>('User', userSchema);
+userSchema.statics.isPasswordMatched = async function (
+  plainTextPassword,
+  hashedPassword,
+) {
+  return await bcrypt.compare(plainTextPassword, hashedPassword);
+};
+
+export const User = model<TUser, UserModel>('User', userSchema);
